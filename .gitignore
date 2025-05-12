@@ -7,7 +7,6 @@
 /Lit/*
 *.docx
 *.pdf
-*.png
 *.tex
 *.log
 *.aux
