@@ -1,0 +1,179 @@
+---
+title: "Cognitive Abilities and Right-Wing Attitudes: A Twin Fixed Effects Study"
+format: docx
+editor: visual
+---
+
+# 
+
+Adorno et al. (1950: 284): "the most ethnocentric are, on the average, less intelligent than the least ethnocentric"
+
+<https://www.goodreads.com/quotes/1486818-conservatives-are-not-necessarily-stupid-but-most-stupid-people-are>
+
+# Previous research
+
+Jost et al. (2003)
+
+Jost (2006)
+
+Kroth et al. 2006
+
+McCraet 1996
+
+Saucier 2000
+
+Schoon et al. 2010: data from British NCDS study of the 1958 cohort; CA at age 11; social attitudes at age 33 positive correlation with liberal social attitudes controlling for parental social class
+
+Hodson and Busseri 2012: negative effect of cognitive ability on RWA in two british studies (1958 NCDS and 1970 BCS), ranging from -.15 (p\<0.001) to -.40 (p\<0.001); sample of undergraduate students from US university: negative association with RWA (-.28; p\<0.001)
+
+Heaven et al. (2011): For Australia based on Wollongong Youth Study, adolescents; CA proxied by numerical and verbal ability; verbal ability strong negative correlation with RWA (-.26, p\<0.001) and SDO (-.15, p\<0.01), numerical ability only correlates with RWA (-.19, p\<0.001) and is independent of SDO (-.03)
+
+Van Hiel et al. 2010:
+
+Ludeke et al. (2017)
+
+Deary et al. (2008): british cohort study 1970;cognitive ability measured at age 10, social attitudes measured at age 30; standardized effect of g on a factor of "liberal, nontraditional social attitudes" .23 for men and women; summarizing their contribution, they state that "intelligent children became, on average, broad-minded adults." (5)
+
+Kanazawa 2010
+
+Schoon et al. (2010)
+
+Stankov (2009)
+
+Morton et al. (2011)
+
+Carl (2015; Cognitive ability and politica lbeliefs) positive relationship between CA and socially liberal beliefs based on data of the American National Election Study from 2012 (standardized beta of .25 (p\<0.001)
+
+(Deary, Batty, & Gale, 2008; Kemmelmeier, 2008; Stankov, 2009; Schoon, Cheng, Gale, Batty, & Deary, 2010; Kanazawa, 2010; Heaven, Ciarrochi, & Leeson, 2011; Hodson & Busseri, 2012; Carl, 2014).
+
+choma and hanoch 2016) based on self-selected non-probability sample of 451 Amazon Mechanical Turk participants from the US; correlation of CA with RWA (-.26, p\<0.01) and SDO (-.16, p\<0.01)
+
+Meeusen & Dhont, 2015; Deary et al., 2008; Schoon et al., 2010; Hodson & Busseri, 2012; De Keersmaecker et al., 2018; Zmigrod et al., 2021).
+
+Saarinen et al. (2022): Using data from Finland, they report that cognitive performance and polygenic scores for cognitive ability are independent of social intolerance.
+
+Onraet et al. 2015: effect of cognitive ability long overlooked (600); Meta analysis based on 67 studies reporting an average correlation of r=-0.20 (95%-CI: \[-0.23,-0.17\]) for right-wing attitudes with the strongest correlation for authoritarianism (r=-0.30 (95%-CI: \[-0.34;-0.24\]) and of r=-0.19 (95%-CI: \[-0.23;-0.16\]) for prejudice (i.e., negative evaluations of and beliefs about out-groups); constant across different dimensions of cognitive ability and strongest for authoritarianism () and ethnocentrism (). The authors conclude that "cognitive ability is an important factor in the genesis of ideological attitudes and prejudice and thus should become more central in theorizing and model building" (599); based on their correlational meta-analysis, the authors conclude: "With meta-analytic relations of this magnitude reliably observed, a strong case can be made that cognitive abilities are as important, and often more important, in explaining ideology and prejudice than many of the constructs commonly discussed in personality and social psychology textbooks. Hence, we strongly advise future models and theories aiming to uncover the psychological ba sisof ideology and prejudice to provide a key role for cognitive ability"
+
+calculate power using estimates from onraet et al. meta study
+
+Abadie, A., Gu, J., & Shen, S. (2023). Instrumental variable estimation with first-stage heterogeneity. Journal of Econometrics.
+
+Heaven et al. (2011):
+
+Politics and genetics: Bell et al. 2020; Dawes et al. 2014; 2015; Oskarsson et al. 2014; Aaroe et al. 2020; Ahlskog 2023; 2024; Ahlskog et al. 2022; Dawes et al. 2021; Edwards et al. 2024
+
+Edwards et al. (2025): US, Minnesota Twin Study Causally more robust, using sibling fixed effects models (including ordinary siblings as well as MZ and DZ twins; thus controlling for shared environmental experiences, but only partially for genetic confounding). Negative effect on authoritarianism of verbal IQ
+
+Edwards et al. (2024): "use of stereotypes and socially conser vativebeliefs function as heuristics, utilizing fewer cognitive resources than thinking about social issues on a case-by-case base. This could cause lower cognitive ability to be associated with right-wing views" Cognitive ability PGS (Becker) as instrument for cognitive abilities (no convincing argument for exclusion restriction except that they are using Cognitive ability instead of Educational Attainment; use sibling fixed effects to account for some shared environmental and genetic confounding (standardized beta of -0.35 (p=0.011); genetic effect on authoritarianism (beta=-0.67; p=0.002); MR; dealing with exclusion restriction by simply assuming pleiotropic effects away
+
+Genetic confounding for political outcomes (Ahlskog 2021)
+
+Ahlskog and Oskarsson 2023 use data from the Swedish Twin Registry
+
+But: High degree of genetic and environmental confounding for political outcomes (Ahlskog and Oskarsson 2023) shows the relevance of discordant twin design as (quasi-)experimental designs are neither feasible nor ethical and panel fixed effects solely focus on the effect of time-invariant variables, thus difficult for highly stable variables; "concentional approach" of adjusting for possible observed confounders falls short; unobserved environmental and genetic heterogeneity; they show that also the effect of cognitive ability on a range of political outcomes is substantially biased upwards when not accounting for unobserved environmental and genetic confounding. However, they do not investigate the effect of CA on RWA or SDO.
+
+Genetic confounding: Polderman et al. 2015; political outcomes can be traced back to genetic differences (e.g., Alford et al. 2005; Hatemi et al. 2014): Problem of genetic confounding: Polygenic scores still suffer from missing heritability, thus being unable to account for genetic confounding completely (Young 2019): identical twins as an answer
+
+reported that cognitive ability yields stronger associa tionswith RWA than with SDO. Likewise, Choma et al. (2014) observed that RWA, but not SDO, is significantl related to a lower cognitive ability. A recent study by Oskarsson et al. (2014) reported that general cognitive ability is positively related to right-wing economic attitudes. Similarly, Carl (2014, 2015) showed that cognitive ability was positively associated with fiscall and economically conservative beliefs
+
+Cultural attitudes: Positive effect of cognitive abilities on social liberalism (Deary et al. 2008a; Schoon et al. 2010), negative effects on racial prejudice (Hodson and Busseri 2012; Onraet et al. 2015) and authoritarianism (Choma and Hanoch 2017; Heaven et al. 2011; Onraet et al. 2015) and social dominance orientation (Choma and Hanoch 2017; Heaven et al. 2011)
+
+Economic attitudes: heterogeneous results: positive effect on economic convervatism in the US (Carl 2014; 2015b), Sweden (Mollerstrom and Seim 2014; Oskarsson et al. 2015) and the UK (Lewis and Bates 2018)
+
+genetic influences account for 30-50% of variation in issue orientation, ideology, and party identification (Alford, Funk, & Hibbing, 2005; Eaves & Eysenck, 1974; Hatemi, Hibbing, et al., 2010; Hatemi, Medland, et al., 2007; Martin et al., 1986).
+
+all correlational level, no causally robust study design is used; so studies can only say that cognitive ability is associated with social conservatism, i.e. smarter people are less conservative.
+
+Stankov (2009): negative correlation between SAT score and social conservatism (r=-.35, p\<0.01)
+
+Oskarsson et al. 2015 given that "political preferences are many steps away from molecular genetic variation and biological processes in the chain of causation", assume that cognitive ability is a "causal mediator, or endophenotype" (651) "the basic idea is that the distal phenotype is causaed by endophenotypes, which in turn are caused by genetic variants" causality is always assumed: "We demonstrate that a common genetic source underlies both cognitive ability and political preferences. Our findings are consistent with the hypothesis that cognitive ability is a causal mechanism linking genes and political orientations" (Oskarsson et al. 2015: 651) -\> there is an alternative way connecting genes related to cognitive ability with political preferences other than cognitive ability having a causal effect on political preferneces
+
+Findings of a longitudinal data set have indicated that lower cognitive performance in childhood (at age of 10‒11 years) predicts lower social liberalism and lower antiracism in adulthood (at the ages of 30 and 33 years), partly via educational qualifications in adulthood (Deary et al., 2008; Hodson & Busseri, 2012; Schoon et al., 2010). Likewise, another longitudinal study has shown that lower intelligence in adolescence and adulthood predicts slightly less liberal values later in adulthood (Kanazawa, 2010). In addition, evidence from crosssectional studies suggests that lower cognitive abilities are related to higher need for ethnic distance (Hello et al., 2006), higher ethnocentrism (Meeusen et al., 2013), higher blatant and subtle prejudice (De Keersmaecker et al., 2018), and higher prejudice toward sexual minorities (Hodson & Busseri, 2012). Also, poor working memory is linked to progroup attitudes and violence endorsement against outgroups (Zmigrod et al., 2021).
+
+Lowcognitive abilitiesmay predispose to stronger social intolerance by restricting one’s capacity to, for example, process complex information, to avoid simple categorization between social groups, or to regulate one’s intuitive (not knowledge-based) predispositions during decision making
+
+Oskarsson et al. (2015): positive correlation with favorable immigration policy opinions (r=.28); common genetic and shared environmental influences, no common unique environmental influences (hint for "no causal effecT")
+
+"causality misunderstanding of multivariate twin models": ""We found evidence that most of the phenotypic relationship can be attributed to a common genetic factor. More specifically, genetic factors account for between 60 and 97% of the correlations between cognitive ability and the political traits. Furthermore, cognitive ability accounts for 10–14% of the genetic variance in the political traits. These results are consistent with the hypothesis that cognitive ability is a causal mechanism linking genes and political orientations."; okay now they admit the possibility of genetic confounding due to pleiotropy: "possible that the same set of genes is influencing political attitudes and cognitive ability independently - a relationship known as pleiotropy" (661) - somehow contradicting their strong "causal" claims made before
+
+Cognitive ability -\> rwa: Choma et al. 2014; Heaven 2011; van hiel et al. 2010; onraet et al. 2015)
+
+sdo (choma et al. 2014; heaven et al. 2011; choma and hanoch 2016)
+
+CA and social conservatism
+
+CA and RWA/SDO
+
+a lot of research focused on the relationship of cognitive styles rather than cognitive ability (see Jost et al. 2003; onaret 2015; van hiel et al. 2010)
+
+age dependency of the relationship: Isen et al. (2022) Van Hiel et al. (2024); Reifen-Tagar and Cimpian (2022)
+
+van Hiel et al. (2024): sample of adolescents in the US negative relationship of CA and RWA (-0.20, p\<0.001) and SDO (-0.13, p\<0.05)
+
+SDO: we should acknowledge that SDO yielded a negative relationship, and certainly not a reversed one as obtained in the meta-analysis of Jedinger and Burger (2022). As some studies have likewise reported a negative relationship for SDO (Van Hiel et al. 2019), also among adolescents (Heaven, Ciarrochi, and Leeson 2011), such a negative relationship may be typical for SDO, but probably does not apply to other measures of economic conservative attitudes, especially when such measures probe into economic policy issues (Jedinger and Burger 2022).
+
+# Theorie
+
+Scarr and Weinberg (1981) on the relationship between cognitive abilities and social attitudes: "Intelligence drives attitude formation. That is, when considering social, moral, and political situations, those with greater cognitive skill are able to form more individualistic and open-minded (i.e. antiauthoritarian) attitudes than those of lesser cognitive ability’’ (p. 987, emphasis added" (following McCourt 1999)
+
+based on Jost et al. (2003): "rigidity of the right hypothesis". given that "right-wing conservatism is positively related to \[...\] intolerance of ambiguity; uncertainty avoidance \[...\] epistemic needs to achieve order, structure, and closure, as well as negatively related to \[...\] integrative complexity" (383) it is assumed that social conservatism "is especially appealing to people who find uncertainty aversive and who need definite and simple answers to life's questions" (Van Hiel et al. 2010: 1766)
+
+motivated information processing
+
+Second, Jost et al. did not consider cognitive ability to be a relevant variable, preferring to explain ideology in terms of motivated information processing; however, problematic informa tionprocessing may also be caused by limitations in cognitive ability (e.g., Roets, Van Hiel, Cornelis, & Soetens, 2008).
+
+factors: cognitive rigidity (Rokeach 1948), intolerance of ambiguity (Frenkel-Brunswik 1949), low cognitive complexity (Tetlock 1983), field dependence (Witkin et al. 1962)
+
+Why so much research on cognitive base of authoritarianism? Taking a historical perspective, Durrheim (1997) suggested, ‘‘If a direct relationship can be established between an irrational cognitive style and specific ideological beliefs, then these beliefs can be reproached on scientific grounds—as (inaccurate, unsystematic, or inefficient’’ (p. 630). In other words, by taking this track, political psychologists have thus tried to unveil the invalidity of particular ideological positions. (Van Hiel et al. 2010: 1767 f.)
+
+Keiller (2010) argued that the capacity for abstract (as opposed to concrete) thinking should facilitate comprehension of other people and the complex mental processing required for the interpretation of relatively novel information (i.e., the type of information encountered during intergroup contact). For instance, adopting another person’s perspective requires advanced cognitive processing, abstraction, and interpretation, particularly when the target is an out-group member (and thus “different”). Given that perspective taking reduces prejudice (Hodson, Choma, & Costello, 2009), stronger mental capabilities may facilitate smoother intergroup interactions.Prejudice and intergroup hostility based on stable personality characteristics categorized in two dimensions: RWA and SDO (Heaven et al. 2011)
+
+CA -\> intergroup contact : Both experimental and longitudinal studies have demonstrated that greater contact with out-groups predicts lower prejudice (Pettigrew & Tropp, 2006); these findings have distinguished such contact as a particularly valuable prejudice-reduction tool (Hodson, 2011). However, because intergroup contact is cognitively demanding (Richeson & Shelton, 2003), it may be avoided by individuals with lower cognitive abilities and approached by individuals with stronger cognitive abilities.
+
+Given that cognitive abilities are critical in forming indi viduatedimpressions of other people and in being open minded(Scarr & Weinberg, 1981) and trusting of other people (Sturgis et al., 2010), individuals with lower cognitive abilities may gravitate toward more socially conservative right-wing ideologies that maintain the status quo and provide psycho logicalstability and a sense of order (Jost et al., 2003 (Hodson and busseri 2011)
+
+Social conservatism and RWA/SDO
+
+Individuals high on RWA see the world as a dangerous and threatening place. They deal with this fact through their high levels of social conformity and submission to authority figures who they believe will create order and security within society. In contrast, individuals high on SDO liken the world to a competitive jungle (Duckitt, Wagner, du Plessis, & Birum, 2002). In order to survive, high SDO individuals are supportive of the dominance of high status and more powerful groups over weaker and less influential ones. SDO individuals are toughminded and act to maintain societal inequalities and their privileged position in the social hierarchy (Pratto et al., 1994). On the other hand, RWA individuals are social conformers, usually vote conservative, and are submissive to the legitimate authorities of the day (Altemeyer, 1981;1998; Duckitt et al., 2002). Many studies have attested to the importance of these ideological dimensions as primary shapers of general social attitudes and intergroup relationships (e.g. Altemeyer, 1998; Duckitt et al., 2002; Duriez, Van Hiel, & Kossowska, 2005; Heaven, Organ, Supavadeeprasit, & Leeson, 2006; Kreindler, 2005; Pratto et al., 1994; Sibley & Duckitt, 2008; Sidanius & Pratto, 1999; Van Hiel & Mervielde, 2005; Verkuyten & Hagendoorn, 1998).
+
+This would suggest that those with lower verbal ability are most likely to view the world as a dangerous place, are most likely to be concerned about national security, and are most likely to see the existing social order as being under attack, a key feature of RWA (Duckitt et al., 2002). Those with lower verbal intelligence are also most likely to view the world as highly competitive and as a dog-eat-dog” world, a key feature of SDO (Duckitt et al., 2002). Lower verbal ability individuals are therefore more likely to find solace in adopting right-wing authoritarian and socially dominant ideological positions. -\> in line with Deary et al. (2008: 3) reporting that low intelligence was correlated with support for views that "schools should teach children to obey authority"
+
+CA and RWA/SDO
+
+RWA: Although initially – and still by some researchers – considered a personality dimension (Altemeyer, 1998), RWA is now also considered an ideological belief (Duckitt, 2001)
+
+SDO: Complementing Altemeyer's authoritarianism construct, (Pratto and Sidanius 1999; Pratto et al., 1994) proposed social dominance theory and social dominance orientation (SDO). SDO-also now widely considered an ideological belief rather than a personality variable (Duckitt, 2001; Pratto, Sidanius, & Levin, 2006)-concerns the belief that relations between social groups should reflect a hierarchy with some groups wielding more power than others. Societal and evolutionary factors are proposed to underlie SDO (Sidanius & Pratto, 1999; Pratto, Sidanius, & Levin, 2006).
+
+In psychology,RWA and SDOare themost popular indices of author itarianism,measured with comprehensive scales comprising items on a range of attitudes (Duckitt, 2001).
+
+Moreover, whereas those higher in SDO might be characterized as ‘leaders’, believing that they and their ingroup are superior to others and should have more power, those higher in RWA might be better thought of as ‘followers’, rigidly enforcing and abiding by social rules and conventions (see Altemeyer, 1998).
+
+Sloppy causality perspective: The argument put forth in these studies is that since formation of basic psychological traits predates the formation of political attitudes, we can safely assume that cognitive ability causes political orientations (Smith, Oxley, et al., 2011). Furthermore, cognitive ability has been shown to be highly heritable (Bouchard & McGue, 2003). This suggests that a causal relationship may go from genes to cognitive ability to political orientations. (Oskarsson et al. 2015)
+
+Wilson (1973): dynamic theory of conservatism: "that the common basis for all the various components of the conservative attitude syndrome is a generalized susceptibility to experiencing threat or anxiety in the face of uncertainty" (259); heritable and environmental factors influence feelings of uncertainty and insecurity; in line with Stankov (2007): perceived threat may vary depending on cognitive level— sources of threat such as complexity, novelty, and ambiguity may be more threatening to those who score low as opposed to those who score high on cognitive tests” (p. 295); correlational support by meta-analysis by Jost et al. (2003) reporting that factors such as intolerance of ambiguity, uncertainty tolerance, fear of threat and loss and self-esteem are related to political conservatism, concluding that "the avoidance of uncertainty (and the striving for certainty) may be particularly tied to one core dimension of conservative thought, resitance to change" (369); indeed, cognitive ability is negative related to risk aversion (Dohmen et al. 2010)
+
+"association between g and social attitudes might be explained through the role of reasoning processes, i.e. that those with greater cognitive skill aremore likely to form open-minded, liberal attitudes, are more likely to read more or to obtain wider cultural exposure.On the other hand, it could be that peoplewith higher cognitive abilitymight bemore likely to endorse attitudes that are considered ‘acceptable’ by researchers ‘" (Schoon et al. 2010), concluding: "childhood in telligenceis important for becoming more open-minded and tolerant as adults"
+
+RWA: Based on Adorno et al. (1950): RWA by Altemeyer (1983; 1998) as a personality structure defined by the "submission to established authorities and the social norms these authorities endorse" (Altemeyer 1998: 48); up to 50% heritable (Hatemi and McDermott 2012; Hatemi et al. 2014; Kandler et al. 2015, 2016; McCourt et al. 1999; Stößel et al. 2006; Nacke and Riemann 2023)
+
+SDO as "one's degree of preference for inequality among social groups (Pratto et al. 1994: 741); little genetic influences and strong shared environment (Kandler et al. 2015, 2016; Stößel et al 2006); up to 48% (Kleppesto et al. 2019; de Vries et al. 2021; Nacke and Riemann 2023)
+
+neuroscience argument (Kanai et al. 2011); Weissflog et al. (2013)
+
+individuals with lower cognitive abilities are assumed to be "ill-equipped to process complex and new social information and to understand constantly changing societal contexts" and are therefore more inclined to stick to "what is presently known and considered acceptable, rather than being open-minded and appreciating multidimensional perspectives" (Onraet et al. 2015: 601; see also Deary et al. 2008; Heaven et al. 2011; McCourt et al. 1999; Stankov 2009). "ideologies endorsing resistance to social change", i.e. cultural conservatism, should be particularly appealing to individuals with lower cognitive ability" (Heaven et al. 2011; Keiller 2010; Stankov 2009); "right-wing ideologies provide well-structured and ordered views about society and intergroup relations, thereby psychologically minimizing the complexity of the social world" (Onraet et al. 2015); holding these beliefs as "an attempt to increase psychological control over their context"; in line with research showing ""Furthermore, studies have shown that being cogni tivelyrestricted when engaging in complex mental process ingand high-effort thinking (Eidelman et al., 2012) facilitates reliance on simple heuristics in social judgments, which in turn lead to quick and biased views about other groups (Heaven et al., 2011; Hodson & Busseri, 2012; Keiller, 2010)"
+
+Wilson (1973): Dynamic theory: conservatism as a motivated response to uncertainty. The threat or uncertainty may derive from fear of death, anarchy, foreigners, dissent, complexity, novelty, ambiguity, and social change. Responses to these sources of uncertainty include superstition, religious dogmatism, ethnocentrism, militarism, authoritarianism, punitiveness, conventionality, and rigid morality.
+
+First, we can assume that cognitive ability affects conservatism directly. Thus, the perceived threat may vary depending on cognitive level—sources of threat such as complexity, novelty, and ambiguity may be more threatening to those who score low as opposed to those who score high on cognitive tests.
+
+Jost et al. (2003) summarize their own position in the following way: “The core ideology of conservatism stresses resistance to change and justification of inequality and is motivated by needs that vary situationally and dispositionally to manage uncertainty and threat.” (p. 339).
+
+need for closure: Research indicated that lower cognitive ability is associated with a higher NFC (Webster & Kruglanski, 1994), which relates to an individual’s desire to come to a relatively quick closure in decisions and judgments (Kruglanski, 1989; Kruglanski & Webster, 1996). Individuals with a high NFC have a strong preference for structure, certainty and predictability and are repelled by ambiguity. Because of these needs, individuals with a high NFC are more attracted to right-wing ideological attitudes, because these attitudes stress the importance of traditional values and the resistance towards change (Roets & Van Hiel, 2006); Authoritarianism may be especially functional in reducing ambiguity and providing a sense of certainty, because ‘RWA attitudes…would provide for individuals the strongest level of closure on social and political issues’ (Crowson et al., 2005, p. 574).
+
+Policy relevance: "Overall, an array of educational programs has been launched for both children and adults, with an aim to reduce social intolerance by increasing knowledge about charac teristicsof various cultures, values, and minorities (Rutland & Killen, 2015). All these educational programs have been based on the assump tionthat increasing knowledge about various minorities would reduce prejudices toward them" (Saarinen et al. 2022)
+
+# Methods
+
+Control for openness to experience? But does it really affect cognitive ability or is it more likely that higher ability individuals develop greater openness?
+
+Moreover, several studies report evidence of a strong positive link between intelligence and personality traits, especially openness to experience (Ackerman & Heggestad, 1997; Bratko, Butkovic, Vukasovic, Chamorro-Premuzic, & von Stumm, 2012; Moutafi, Furnham, & Crump, 2006; Moutafi, Furnham, & Paltiel, 2004).

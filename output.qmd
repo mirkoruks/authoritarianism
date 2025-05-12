@@ -1,0 +1,355 @@
+---
+title: "Using twins to study the effect of IQ on RWA and SDO"
+format: pdf
+editor: visual
+---
+
+```{r setup, include=FALSE}
+rm(list = ls())
+knitr::opts_chunk$set(
+    echo = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    cache = FALSE
+)
+library(haven)
+library(tidyverse)
+library(lavaan)
+library(lme4)
+library(here)
+library(modelsummary)
+library(kableExtra)
+library(marginaleffects)
+library(wesanderson)
+library(parameters)
+library(ggpubr)
+library(ggplot2)
+```
+
+```{r, label = "Recode", cache = TRUE, include = FALSE}
+source(here("Authoritarianism/recode.R"))
+```
+
+The basic idea of the twin fixed effects approach is:
+
+-   Pooled IQ effect: simple correlation
+-   Overall within IQ effect: within effect for both, MZ and DZ twin. Controls for shared environmental and some genetic confounding
+-   Within IQ effect for DZ twins: within effect for DZ twins. Controls for shared environmental and some genetic confounding
+-   Within IQ effect for MZ twins: within effect for MZ twins. Controls for shared environmental and genetic confounding
+
+So, the effect that we use to test the hypothesis that IQ has an effect on RWA/SDO is the within effect for MZ twins as this effect is estimated with the highest degree of control of unobserved shared environmental and genetic heterogeneity. The comparison of the within effect of DZ and MZ twins allows to assess the relevance of genetic confounding. The comparison of the pooled and the overall within effect allows to assess the relevance of shared environmental confounding.
+
+In table @tbl-2 you can see the regression results from three models (M1 = Pooled OLS; M2 = Twin Fixed Effects for MZ and DZ twins pooled; M3 = Twin Fixed Effects for MZ and DZ twins separately).
+
+```{r}
+#| label: tbl-2
+#| tbl-cap: "Regression Results"
+#| tbl-pos: 'H'
+m0_rwa <- lmer("RWA ~ (1|fid)", data = df_full)
+
+m1_rwa <- lmer("RWA ~ IQ_res + (1|fid)", data = df_full)
+
+m2_rwa <- lmer("RWA ~ IQ_res_dev + IQ_res_mean + (1|fid)", data = df_full)
+
+m3_rwa <- lmer("RWA ~ IQ_res_dev*zygosity + IQ_res_mean + (1|fid)", data = df_full)
+
+m0_sdo <- lmer("SDO ~ (1|fid)", data = df_full)
+
+m1_sdo <- lmer("SDO ~ IQ_res + (1|fid)", data = df_full)
+
+m2_sdo <- lmer("SDO ~ IQ_res_dev + IQ_res_mean + (1|fid)", data = df_full)
+
+m3_sdo <- lmer("SDO ~ IQ_res_dev*zygosity + IQ_res_mean + (1|fid)", data = df_full)
+
+model_list <- list(
+    "Outcome: RWA" = list("M1" = m1_rwa, "M2" = m2_rwa, "M3" = m3_rwa),
+    "Outcome: SDO" = list("M1" = m1_sdo, "M2" = m2_sdo, "M3" = m3_sdo))
+reg_table <- modelsummary(model_list, 
+                          stars = c("*" = 0.05, "**" = 0.01, "***" = 0.001),
+                          shape = "cbind",
+                          coef_omit = c(1,5,7,8),
+                          coef_rename = c("IQ_res" = "IQ (Pooled)", "IQ_res_dev:zygosityMZ" = "IQ (Within) x MZ", "IQ_res_dev" = "IQ (Within)", "IQ_res_mean" = "IQ (Between)"),
+                          gof_omit = "RMSE",
+                          notes = "Standard Errors in parentheses. The main effects are the effects conditional on an observation belonging to the reference category of zygosity. The reference category of zygosity is DZ twins. So, The main effects show the effects for DZ twins. The interaction effects show the differences between the MZ and DZ effect. Main effects of zygosity not shown.")
+reg_table
+```
+
+```{r}
+models_rwa1 <- purrr::map(c(m1_rwa, m2_rwa, m3_rwa), parameters) %>% 
+    bind_rows(.id = "Model") %>%  
+    mutate(Outcome = "RWA") %>% 
+    filter(Effects == "fixed" & str_detect(Parameter, "^IQ.*")) %>% 
+    as_tibble()
+
+models_sdo1 <- purrr::map(c(m1_sdo, m2_sdo, m3_sdo), parameters) %>% 
+    bind_rows(.id = "Model") %>%  
+    mutate(Outcome = "SDO") %>% 
+    filter(Effects == "fixed" & str_detect(Parameter, "^IQ.*")) %>% 
+    as_tibble()
+
+models1 <- bind_rows(models_rwa1, models_sdo1) %>% 
+    mutate(Parameter = case_when(Parameter == "IQ_res_dev:zygosityMZ" ~ "IQ (Within) x MZ",
+                                 Parameter == "IQ_res_mean" ~ "IQ (Between)",
+                                 Parameter == "IQ_res_dev" ~ "IQ (Within)",
+                                 Parameter == "IQ_res" ~ "IQ (Pooled)"),
+           Model = str_c("Model ", Model),
+           Outcome = factor(Outcome, levels = c("RWA", "SDO"), ordered = TRUE),
+           Parameter = factor(Parameter, levels = c("IQ (Within) x MZ", "IQ (Within)","IQ (Between)","IQ (Pooled)"), ordered = TRUE)) %>% 
+    select(Model, Parameter, Coefficient, SE, CI, CI_low, CI_high, p, Outcome)
+
+regression_plot1 <- models1 %>% 
+    ggplot(aes(x = Coefficient, y = Parameter, color = Outcome)) +
+    geom_point(position = position_dodge(width=.75)) + 
+    geom_errorbarh(aes(xmin=CI_low, xmax=CI_high), position=position_dodge(width=.75), height=0) + 
+    labs(x="Estimate", y="", colour="Outcome") + 
+    theme_bw() +
+    facet_wrap(vars(Model), ncol = 1, scales = "free_y") + 
+    geom_vline(xintercept=0, color = "black", linetype = "dotted") +
+    scale_color_manual(values = wes_palette('Darjeeling1'))
+
+
+m3_rwa_effects <- avg_slopes(m3_rwa,
+                             variables = "IQ_res_dev",
+                             by = "zygosity") %>% 
+    mutate(Outcome = "RWA")
+
+m3_sdo_effects <- avg_slopes(m3_sdo,
+                             variables = "IQ_res_dev",
+                             by = "zygosity") %>% 
+    mutate(Outcome = "SDO")
+
+m3_effects <- m3_rwa_effects %>% 
+    bind_rows(m3_sdo_effects) %>% 
+    as_tibble() %>% 
+    select(zygosity, estimate, p.value, conf.low, conf.high, Outcome) %>% 
+    mutate(Outcome = factor(Outcome)) %>% 
+    mutate(pstar = case_when(p.value < 0.05 ~ "(p < 0.05)",
+                             p.value < 0.01 ~ "(p < 0.01)",
+                             p.value < 0.001 ~ "(p < 0.001)",
+                             .default = "(n.s.)"),
+           value = str_c(zygosity, ": ", round(estimate, 3), " ", pstar))
+
+
+
+signif_labels <- models1 %>% 
+    filter(Parameter == "IQ (Within) x MZ") %>% 
+    mutate(pstar = case_when(p < 0.05 ~ "(p < 0.05)",
+                             p < 0.01 ~ "(p < 0.01)",
+                             p < 0.001 ~ "(p < 0.001)",
+                             .default = "(n.s.)"),
+           value = str_c(round(Coefficient, 3), " ", pstar)) 
+
+signif_labels_rwa <- signif_labels %>% 
+    filter(Outcome == "RWA") %>% 
+    pull(value)
+
+signif_labels_sdo <- signif_labels %>% 
+    filter(Outcome == "SDO") %>% 
+    pull(value)
+
+dz_rwa <- m3_effects %>% 
+    filter(Outcome == "RWA" & zygosity == "DZ") %>% 
+    pull(estimate)
+
+mz_rwa <- m3_effects %>% 
+    filter(Outcome == "RWA" & zygosity == "MZ") %>% 
+    pull(estimate)
+
+dz_sdo <- m3_effects %>% 
+    filter(Outcome == "SDO" & zygosity == "DZ") %>% 
+    pull(estimate)
+mz_sdo <- m3_effects %>% 
+    filter(Outcome == "SDO" & zygosity == "MZ") %>% 
+    pull(estimate)
+
+
+effects_by_zygosity <- ggplot(m3_effects, aes(x = estimate, y = factor(Outcome))) +
+    geom_point(aes(color = zygosity), position = position_dodge(width=.75))  + 
+    geom_errorbarh(aes(color = zygosity, xmin=conf.low, xmax=conf.high), position=position_dodge(width=.75), height=0) + 
+    labs(x="IQ (Within) Estimate", y="", color="Zygosity") + 
+    theme_bw() +
+    geom_vline(xintercept=0, color = "black", linetype = "dotted") +
+    scale_color_manual(values = wes_palette('Darjeeling2')) +
+    geom_segment(aes(x = dz_rwa, xend = mz_rwa, y = 0.65, yend = 0.65), color = "black") + 
+    geom_segment(aes(x = dz_rwa, xend = dz_rwa, y = 0.65, yend = 0.70), color = "black") +
+    geom_segment(aes(x = mz_rwa, xend = mz_rwa, y = 0.65, yend = 0.70), color = "black") +
+    annotate("text", x = (dz_rwa + mz_rwa) / 2, y = 0.55, label = signif_labels_rwa) + 
+    geom_segment(aes(x = dz_sdo, xend = mz_sdo, y = 1.65, yend = 1.65), color = "black") + 
+    geom_segment(aes(x = dz_sdo, xend = dz_sdo, y = 1.65, yend = 1.70), color = "black") +
+    geom_segment(aes(x = mz_sdo, xend = mz_sdo, y = 1.65, yend = 1.70), color = "black") +
+    annotate("text", x = (-0.0910+-0.0302)/2, y = 1.55, label = signif_labels_sdo)
+
+
+
+prediction_plot_rwa <- plot_predictions(m3_rwa, condition = c("IQ_res_dev", "zygosity")) +
+    scale_color_manual(values = wes_palette('Darjeeling2')) +
+    theme_bw() +
+    labs(x="IQ (Within Pair Deviation)", y="RWA", colour="Zygosity") +
+    guides(fill = "none") +
+    annotate("text", x = -1, y = 0, label = m3_effects %>% 
+                 filter(Outcome == "RWA" & zygosity == "DZ") %>% 
+                 pull(value), color = wes_palette('Darjeeling2')[1],
+             hjust = 0) +
+    annotate("text", x = -1, y = -0.1, label = m3_effects %>% 
+                 filter(Outcome == "RWA" & zygosity == "MZ") %>% 
+                 pull(value), color = wes_palette('Darjeeling2')[2],
+             hjust = 0) 
+
+prediction_plot_sdo <- plot_predictions(m3_sdo, condition = c("IQ_res_dev", "zygosity")) +
+    scale_color_manual(values = wes_palette('Darjeeling2')) +
+    theme_bw() +
+    labs(x="IQ (Within Pair Deviation)", y="SDO", colour="Zygosity") +
+    guides(fill = "none") +
+    annotate("text", x = -1, y = 0, label = m3_effects %>% 
+                 filter(Outcome == "SDO" & zygosity == "DZ") %>% 
+                 pull(value), color = wes_palette('Darjeeling2')[1],
+             hjust = 0) +
+    annotate("text", x = -1, y = -0.1, label = m3_effects %>% 
+                 filter(Outcome == "SDO" & zygosity == "MZ") %>% 
+                 pull(value), color = wes_palette('Darjeeling2')[2],
+             hjust = 0) 
+
+
+```
+
+The effects of interest are visualized in different figures. First, Figure @fig-1 is a coefficient plot of the regression results presented in Table @tbl-2.
+
+```{r}
+#| label: fig-1
+#| fig-cap: "Coefficient Plot Regression Results"
+#| fig-pos: 'H'
+#| fig-width: 5
+regression_plot1
+```
+
+Then, Figure @fig-2 shows the Within-Twin-Pair effects by zygosity.
+
+```{r}
+#| label: fig-2
+#| fig-cap: "IQ (Within) Estimates by Zyogsity"
+#| fig-pos: 'H'
+#| fig-width: 5
+effects_by_zygosity
+```
+
+Finally, Figures @fig-3 and @fig-4 show prediction plots for RWA and SDO, respectively.
+
+```{r}
+#| label: fig-3
+#| fig-cap: "Prediction Plot RWA by Zyogsity"
+#| fig-pos: 'H'
+#| fig-width: 5
+prediction_plot_rwa
+```
+
+```{r}
+#| label: fig-4
+#| fig-cap: "Prediction Plot RWA by Zyogsity"
+#| fig-pos: 'H'
+#| fig-width: 5
+prediction_plot_sdo
+```
+
+\tiny
+
+```{r}
+#| label: tbl-3
+#| tbl-cap: "Regression Results by Cohort"
+#| tbl-pos: 'H'
+
+
+m4_rwa <- lmer("RWA ~ IQ_res*cohort + (1|fid)", data = df_full)
+m5_rwa <- lmer("RWA ~ IQ_res_dev*cohort + IQ_res_mean*cohort + (1|fid)", data = df_full)
+m6_rwa <- lmer("RWA ~ IQ_res_dev*zygosity*cohort + IQ_res_mean*cohort + (1|fid)", data = df_full)
+
+
+m4_sdo <- lmer("SDO ~ IQ_res*cohort + (1|fid)", data = df_full)
+m5_sdo <- lmer("SDO ~ IQ_res_dev*cohort + IQ_res_mean*cohort + (1|fid)", data = df_full)
+m6_sdo <- lmer("SDO ~ IQ_res_dev*zygosity*cohort + IQ_res_mean*cohort + (1|fid)", data = df_full)
+
+model_list2 <- list(
+    "Outcome: RWA" = list("M1" = m4_rwa, "M2" = m5_rwa, "M3" = m6_rwa),
+    "Outcome: SDO" = list("M1" = m4_sdo, "M2" = m5_sdo, "M3" = m6_sdo))
+reg_table2 <- modelsummary(model_list2, 
+                           output = "tinytable",
+                           stars = c("*" = 0.05, "**" = 0.01, "***" = 0.001),
+                           shape = "cbind",
+                           coef_omit = c(1,3,4,13,15,16,19,20),
+                           coef_rename = c("IQ_res" = "IQ (Pooled)", "IQ_res_dev:zygosityMZ" = "IQ (Within) x MZ", "IQ_res_dev" = "IQ (Within)", "IQ_res_mean" = "IQ (Between)",
+                                           "IQ_res:cohortC3" = "IQ (Pooled) x Cohort 3", "IQ_res:cohortC4" = "IQ (Pooled) x Cohort 4", "cohortC3:IQ_res_mean" = "IQ (Between) x Cohort 3", "cohortC4:IQ_res_mean" = "IQ (Between) x Cohort 4", "IQ_res_dev:cohortC3" = "IQ (Within) x Cohort 3", "IQ_res_dev:cohortC4" = "IQ (Within) x Cohort 4", "IQ_res_dev:zygosityMZ:cohortC3" = "IQ (Within) x MZ x Cohort 3", "IQ_res_dev:zygosityMZ:cohortC4" = "IQ (Within) x MZ x Cohort 4"),
+                           gof_omit = "RMSE",
+                           notes = "Standard Errors in parentheses. The main effects are the effects conditional on an observation belonging to the reference category of zygosity and cohort. The reference category of zygosity is DZ twins. The reference category of cohort is Cohort 2. So, The main effects show the effects for DZ twins of cohort 2. The interaction effects show the differences with respect to that main effect. Main effects of zygosity and cohort are not shown.")
+
+reg_table2
+```
+
+\normalsize
+
+In table @tbl-3 you can see the same models as in @tbl-2 - only differentiated by cohort.
+
+Except for the significantly lower pooled IQ effect on RWA for the third cohort, there are no significant cohort difference - neither for the (pooled, between, within) main effects, nor for the differences of these effects between MZ and DZ twins. (You can see that in Figure @fig-5 as well.)
+
+```{r}
+#| label: fig-5
+#| fig-cap: "Regression Results by Cohort"
+#| fig-pos: 'H'
+#| fig-width: 5
+#| fig-height: 7
+
+models_rwa2 <- purrr::map(c(m4_rwa, m5_rwa, m6_rwa), parameters) %>% 
+    bind_rows(.id = "Model") %>%  
+    mutate(Outcome = "RWA") %>% 
+    filter(Effects == "fixed" & str_detect(Parameter, "^IQ.*")) %>% 
+    as_tibble()
+
+models_sdo2 <- purrr::map(c(m4_sdo, m5_sdo, m6_sdo), parameters) %>% 
+    bind_rows(.id = "Model") %>%  
+    mutate(Outcome = "SDO") %>% 
+    filter(Effects == "fixed" & str_detect(Parameter, "^IQ.*")) %>% 
+    as_tibble()
+
+models2 <- bind_rows(models_rwa2, models_sdo2) %>% 
+    mutate(Parameter = case_when(Parameter == "IQ_res_mean" ~ "IQ (Between)",
+                                 Parameter == "IQ_res_mean:cohortC3" ~ "IQ (Between) x Cohort 3",
+                                 Parameter == "IQ_res_mean:cohortC3" ~ "IQ (Between) x Cohort 4",
+                                 
+                                 Parameter == "IQ_res_dev" ~ "IQ (Within)",
+                                 Parameter == "IQ_res_dev:zygosityMZ" ~ "IQ (Within) x MZ",
+                                 Parameter == "IQ_res_dev:cohortC3" ~ "IQ (Within) x Cohort 3",
+                                 Parameter == "IQ_res_dev:cohortC4" ~ "IQ (Within) x Cohort 4",
+                                 Parameter == "IQ_res_dev:zygosityMZ:cohortC3" ~ "IQ (Within) x MZ x Cohort 3",
+                                 Parameter == "IQ_res_dev:zygosityMZ:cohortC4" ~ "IQ (Within) x MZ x Cohort 4",
+                                 
+                                 Parameter == "IQ_res" ~ "IQ (Pooled)",
+                                 Parameter == "IQ_res:cohortC3" ~ "IQ (Pooled) x Cohort 3",
+                                 Parameter == "IQ_res:cohortC4" ~ "IQ (Pooled) x Cohort 4",
+    ),
+    Model = str_c("Model ", Model),
+    Outcome = factor(Outcome, levels = c("RWA", "SDO"), ordered = TRUE),
+    Parameter = factor(Parameter, levels = c(
+        "IQ (Within) x MZ x Cohort 4", 
+        "IQ (Within) x MZ x Cohort 3", 
+        "IQ (Within) x Cohort 4", 
+        "IQ (Within) x Cohort 3", 
+        "IQ (Within) x MZ", "IQ (Within)",
+        "IQ (Between) x Cohort 4", 
+        "IQ (Between) x Cohort 3", 
+        "IQ (Between)",
+        "IQ (Pooled) x Cohort 4",
+        "IQ (Pooled) x Cohort 3",
+        "IQ (Pooled)"), ordered = TRUE)) %>% 
+    select(Model, Parameter, Coefficient, SE, CI, CI_low, CI_high, p, Outcome)
+
+regression_plot2 <- models2 %>% 
+    ggplot(aes(x = Coefficient, y = Parameter, color = Outcome)) +
+    geom_point(position = position_dodge(width=.75)) + 
+    geom_errorbarh(aes(xmin=CI_low, xmax=CI_high), position=position_dodge(width=.75), height=0) + 
+    labs(x="Estimate", y="", colour="Outcome") + 
+    theme_bw() +
+    facet_wrap(vars(Model), ncol = 1, scales = "free_y") + 
+    geom_vline(xintercept=0, color = "black", linetype = "dotted") +
+    scale_color_manual(values = wes_palette('Darjeeling1')) +
+    theme(aspect.ratio = 1)
+regression_plot2
+
+```

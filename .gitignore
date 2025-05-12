@@ -1,0 +1,14 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Rproj
+.Rproj.user
+/Lit/*
+*.docx
+*.pdf
+*.png
+*.tex
+*.log
+*.aux
+/output_cache/*

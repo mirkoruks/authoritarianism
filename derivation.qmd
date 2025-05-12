@@ -1,0 +1,48 @@
+---
+title: "Deriving bias"
+format: pdf
+editor: visual
+---
+
+Deriving the bias of between and within effect in a twin fixed effects model:
+
+twin j clustered in family i
+$$
+\begin{align}
+Y_{ij}=b_{yx}X_{ij}+a_{21}A^{x}_{ij}+c_{21}C^{x}_{ij}+a_{22}A^{y}_{ij}+c_{22}C^{y}_{ij}+e_{22}E^{y}_{ij} \\
+X_{ij}=a_{11}A^{x}_{ij}+c_{11}C^{x}_{ij}+e_{11}E^{x}_{ij} \\
+Cov(C^{x}_{ij},C^{x}_{ij'})=1\\
+Cov(A^{x}_{ij},A^{x}_{ij'})=r\\
+Cov(C^{y}_{ij},C^{y}_{ij'})=1\\
+Cov(A^{y}_{ij},A^{y}_{ij'})=r_{g}
+\end{align}
+$$
+
+$$
+\begin{align}
+\beta_{w}=\frac{Cov(Y_{ij}, (X_{ij}-\bar{X}_{i}))}{Var(X_{ij}-\bar{X}_{i})} \\ 
+=\frac{Cov\left[ Y_{ij},\left(\frac{X_{ij}-X_{ij'}}{2}\right)\right]}{Var\left(\frac{X_{ij}-X_{ij'}}{2}\right)} \\
+=\frac{\frac{1}{2}[Cov(Y_{ij},X_{ij})-Cov(Y_{ij},X_{ij'})]}{\frac{1}{4}[2Var(X_{ij})-2Cov(X_{ij}, X_{ij'})]}\\
+=\frac{Cov(b_{yx}X_{ij}+a_{21}A^{x}_{ij}+c_{21}C^{x}_{ij}+a_{22}A^{y}_{ij}+c_{22}C^{y}_{ij}+e_{22}E^{y}_{ij},X_{ij})-Cov(b_{yx}X_{ij}+a_{21}A^{x}_{ij}+c_{21}C^{x}_{ij}+a_{22}A^{y}_{ij}+c_{22}C^{y}_{ij}+e_{22}E^{y}_{ij},X_{ij'})}{Var(X_{ij})-Cov(X_{ij}, X_{ij'})}\\
+=\frac{Cov(b_{yx}X_{ij}+a_{21}A^{x}_{ij}+c_{21}C^{x}_{ij}+a_{22}A^{y}_{ij}+c_{22}C^{y}_{ij}+e_{22}E^{y}_{ij},X_{ij})-Cov(b_{yx}X_{ij}+a_{21}A^{x}_{ij}+c_{21}C^{x}_{ij}+a_{22}A^{y}_{ij}+c_{22}C^{y}_{ij}+e_{22}E^{y}_{ij},X_{ij'})}{Var(X_{ij})-Cov(X_{ij}, X_{ij'})}\\
+=\frac{b_{yx}(Var(X_{ij})-Cov(X_{ij},X_{ij'}))+a_{21}(Cov(A^{x}_{ij},X_{ij})-Cov(A^{x}_{ij},X_{ij'}))+c_{21}(Cov(C^{x}_{ij},X_{ij})-Cov(C^{x}_{ij},X_{ij'}))}{Var(X_{ij})-Cov(X_{ij}, X_{ij'})}\\
+=b_{yx}+\frac{a_{21}(Cov(A^{x}_{ij},X_{ij})-Cov(A^{x}_{ij},X_{ij'}))+c_{21}(Cov(C^{x}_{ij},X_{ij})-Cov(C^{x}_{ij},X_{ij'}))}{Var(X_{ij})-Cov(X_{ij}, X_{ij'})}\\
+=b_{yx}+\frac{a_{21}(a_{11}-r_{g}a_{11})}{a_{11}^{2}+c_{11}^{2}+e_{11}^{2}-(r_{g}a_{11}^{2}+c_{11}^{2})}
+\end{align}
+$$
+For MZ twins, with $r_{g}=1$:
+$$
+\begin{align}
+\beta_{w}^{MZ}=b_{yx}+\frac{a_{21}(a_{11}-a_{11})}{a_{11}^{2}+c_{11}^{2}+e_{11}^{2}-(a_{11}^{2}+c_{11}^{2})}
+=b_{yx}
+\end{align}
+$$
+
+
+For DZ twins, with $r_{g}=0.5$:
+$$
+\begin{align}
+\beta_{w}^{DZ}=b_{yx}+\frac{a_{21}(a_{11}-0.5a_{11})}{a_{11}^{2}+c_{11}^{2}+e_{11}^{2}-(0.5a_{11}^{2}+c_{11}^{2})}\\
+=b_{yx}+\frac{a_{21}0.5a_{11}}{0.5a_{11}^{2}+e_{11}^{2}}
+\end{align}
+$$
