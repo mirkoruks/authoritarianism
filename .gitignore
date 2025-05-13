@@ -11,3 +11,4 @@
 *.log
 *.aux
 /output_cache/*
+power_result.rds
