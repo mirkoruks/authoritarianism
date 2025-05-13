@@ -8,19 +8,20 @@ library(marginaleffects)
 library(lmerTest)
 library(doParallel)
 library(foreach)
+library(paletteer)
 
 # Input-Parameter
-a11 <- c(sqrt(0.5), sqrt(0.3), sqrt(0.6), sqrt(0.5))
+a11 <- c(sqrt(0.5), sqrt(0.3), sqrt(0.6), sqrt(0.7))
 c11 <- c(sqrt(0.2), sqrt(0.2), sqrt(0.2), sqrt(0.3))
 e11 <- c(sqrt(0.3), sqrt(0.5), sqrt(0.2), sqrt(0.2))
 ace11 <- tibble(a11 = a11, c11 = c11, e11 = e11)
 n_ace <- nrow(ace11)
 
 params <- expand_grid(
-    b = c(0.1, 0.2, 0.3, 0.4, 0.5),
-    a21 = c(0, 0.2, 0.4, 0.5),
-    c21 = c(0, 0.2, 0.4, 0.5),
-    e21 = c(0, 0.2, 0.4, 0.5),
+    b = c(0.01, 0.02, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5),
+    a21 = c(0, 0.2, 0.4, 0.5, 0.6),
+    c21 = c(0, 0.2, 0.4, 0.5, 0.6),
+    e21 = c(0, 0.2, 0.4, 0.5, 0.6),
     a22_weights = c(0.4),
     c22_weights = c(0.2),
     e22_weights = c(0.4),
@@ -234,23 +235,55 @@ power_result <- foreach (k = 1:nrow(par_grid),
                          }
 stopCluster(my_cluster)
 
-# Get power estimates for within MZ effect
-mz_power <- power_result %>% 
-    bind_rows(.id = "Parameter_Combination") %>% 
-    filter(Group == "Within-MZ") #%>% select parameter combination here!
-    group_by(Parameter_Combination) %>% 
-    summarize(Power = mean(Power),
-              b = mean(b))
+saveRDS(object = power_result, file = "power_result.rds")
 
-ggplot(mz_power, 
-       aes(x = b, y = Power)) +
-    geom_line(color = 'red', size = 1.5) + 
-    # add a horizontal line at 80%
-    geom_hline(aes(yintercept = .8), linetype = 'dashed') + 
-    # Prettify!
-    theme_minimal() + 
-    scale_y_continuous(labels = scales::percent) + 
-    labs(x = 'Linear Effect Size', y = 'Power')
+power_result <- read_rds("Authoritarianism/power_result.rds") %>% 
+    dplyr::select(-b) %>% 
+    distinct() %>% 
+    bind_rows() %>% 
+    mutate(Outcome = case_when(N_mz == 572 ~ "RWA",
+                               N_mz == 573 ~ "SDO"))
+
+# one plot for every combination of a11, c11 and e11
+for (i in 1:nrow(ace11)) {
+    mz_power <- power_result %>% 
+        filter(is.na(Note) & Group == "Within-MZ" & a11 == as.numeric(ace11[i, "a11"]) & c11 == as.numeric(ace11[i, "c11"]) & e11 == as.numeric(ace11[i, "e11"]) & e21 == 0) 
+    
+    power_plot <- ggplot(mz_power, 
+                         aes(x = b, y = Power, color = factor(Outcome), group = Outcome)) +
+        geom_line(size = 1.5, alpha = 0.6) + 
+        geom_hline(yintercept = 0.8, linetype = 'dashed') + 
+        geom_vline(xintercept = 0.3, linetype = 'dashed', color = paletteer_d("nationalparkcolors::Badlands")[3]) + 
+        theme_minimal() + 
+        scale_y_continuous(labels = scales::percent) + 
+        scale_color_paletteer_d("nationalparkcolors::Badlands") +
+        theme(plot.caption = element_text(hjust = 0),
+              plot.title = element_text(hjust = 0.5)) +
+        labs(x = "Linear Effect Size",
+             y = 'Power', 
+             #title = "Results of Power Analysis",
+             caption = paste0("Note: Power calculated based on Monte Carlo Simulations with M=500 rounds. \nEffect size reported by meta analysis by Onraet et al. (2015) marked by dashed red line. \nFixed parameters: alpha=",
+                              as.numeric(mz_power[1,"alpha"]),", a11 = sqrt(",
+                              as.numeric(mz_power[1,"a11"])**2,"), c11 = sqrt(",
+                              as.numeric(mz_power[1,"c11"])**2,"), e11 = sqrt(",
+                              as.numeric(mz_power[1,"e11"])**2,"), \na22 = sqrt(",
+                              as.numeric(mz_power[1,"a22_weights"]),"*e(Y)), c22 = sqrt(",
+                              as.numeric(mz_power[1,"c22_weights"]),"*e(Y)), e22 = sqrt(",
+                              as.numeric(mz_power[1,"e22_weights"]),"*e(Y)), \ne(Y) = 1-(b^2 + a21^2 + c21^2 + e21^2)"
+             ),
+             color = 'Outcome') +
+        facet_grid(
+            a21 ~ c21,
+            labeller = labeller(
+                a21 = c("0" = "a21 = 0", "0.2" = "a21 = 0.2", "0.4" = "a21 = 0.4", "0.5" = "a21 = 0.5"),
+                c21 = c("0" = "c21 = 0", "0.2" = "c21 = 0.2", "0.4" = "c21 = 0.4", "0.5" = "c21 = 0.5")
+            )
+        )
+    power_plot
+    ggsave(filename = paste0("Authoritarianism/power_plot",i,".png"), bg = "white",
+           width = 8, height = 8,
+           plot = power_plot, dpi = 800)
+}
 
 
 
